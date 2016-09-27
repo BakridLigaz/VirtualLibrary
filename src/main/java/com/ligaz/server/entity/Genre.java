@@ -3,10 +3,11 @@ package com.ligaz.server.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name ="genre")
-public class Genre {
+public class Genre implements Serializable {
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -17,6 +18,10 @@ public class Genre {
     private String name;
 
     public Genre() {
+    }
+
+    public Genre(String name) {
+        this.name = name;
     }
 
     public int getId() {

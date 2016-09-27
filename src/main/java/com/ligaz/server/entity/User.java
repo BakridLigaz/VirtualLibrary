@@ -3,9 +3,10 @@ package com.ligaz.server.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -24,8 +25,8 @@ public class User {
     @Column(name = "password",nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role")
+    @Column(name="role")
+    @Enumerated(EnumType.ORDINAL)
     private Role role;
 
     public User() {

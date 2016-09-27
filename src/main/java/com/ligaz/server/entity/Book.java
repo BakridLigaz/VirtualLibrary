@@ -4,10 +4,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.type.ImageType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Book {
+public class Book implements Serializable {
 
     @Id
     @GeneratedValue(generator = "increment")
