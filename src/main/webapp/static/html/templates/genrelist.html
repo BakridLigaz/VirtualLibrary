@@ -1,0 +1,8 @@
+<div>
+    <div>
+        <ul ng-repeat="genre in genreList|orderBy:name">
+            <li>{{genre.name}}</li>
+        </ul>
+    </div>
+    <button class="btn btn-primary" ng-click="openModal()">Добавить жанр</button>
+</div>

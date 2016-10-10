@@ -1,0 +1,8 @@
+<div>
+    <div>
+        <ul ng-repeat="author in authorList|orderBy:name">
+            <li>{{author.name}}</li>
+        </ul>
+    </div>
+    <button class="btn btn-primary" ng-click="openModal()">Добавить автора</button>
+</div>

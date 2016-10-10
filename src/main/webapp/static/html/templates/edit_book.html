@@ -1,0 +1,94 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Добавление книги</h3>
+    </div>
+    <form class="form-horizontal modal-body" novalidate="novalidate" name="bookForm" ng-show="isEdit">
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="name">Название:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="name" placeholder="Введите название книги" required
+                       ng-model="book.name" ng-keyup="Exist(book.name)">
+            </div>
+            <div ng-show="isExist">
+                <span>Книга уже существует!!!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="date">Дата публикации:</label>
+            <div class="col-sm-5">
+                <input type="date" class="form-control" id="date" required
+                       ng-model="book.publish_date">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="page_count">Количество страниц:</label>
+            <div class="col-sm-5">
+                <input type="number" class="form-control" id="page_count" placeholder="Введите количество страниц"
+                       ng-model="book.count" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="description">Описание:</label>
+            <div class="col-sm-5">
+                <textarea class="form-control" id="description" ng-model="book.description" required>
+                    </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="author">Автор:</label>
+            <div class="col-sm-5">
+                <select class="form-control" id="author" ng-model="book.author"
+                        ng-options="author.name for author in currentAuthorList" required>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="genre">Жанр:</label>
+            <div class="col-sm-5">
+                <select class="form-control" id="genre" ng-model="book.genre"
+                        ng-options="genre.name for genre in currentGenreList" required>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="choose_img">Обложка:</label>
+            <div class="col-sm-5">
+                <input type="file" ngf-select="" ng-model="image" name="image" accept="image/*" class="form-control"
+                       id="choose_img" required=""/>
+                <img ngf-src="picFile" class="thumb"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <label class="control-label col-sm-2" for="choose_file">Файл книги:</label>
+            <div class="col-sm-5">
+                <input type="file" ngf-select="" accept="application/pdf" ng-model="content" name="content"
+                       class="form-control" id="choose_file" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-default" ng-click="save(image,content,book)"
+                        ng-disabled="bookForm.$invalid">Сохранить
+                </button>
+                <button class="btn btn-default" ng-click="closeAndExit()">Выйти</button>
+            </div>
+        </div>
+    </form>
+    <div class="modal-body" ng-show="isLoad">
+        <h1>Загрузка данных...</h1>
+    </div>
+    <div ng-hide="isEdit" class="modal-body">
+        <h1>{{allResults}}</h1>
+        <button class="btn btn-default" ng-click="closeAndExit()">Выйти</button>
+    </div>
+</div>

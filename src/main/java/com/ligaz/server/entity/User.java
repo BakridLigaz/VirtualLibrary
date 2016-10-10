@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "user")
 public class User implements Serializable {
 
     @Id
@@ -16,7 +17,7 @@ public class User implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "login",nullable = false)
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @Column(name = "email",nullable = false)

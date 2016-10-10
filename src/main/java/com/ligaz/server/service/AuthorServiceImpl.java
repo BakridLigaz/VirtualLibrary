@@ -23,17 +23,19 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void addAuthor(Author author) {
+    public String addAuthor(Author author) {
         if(!repository.exists(author.getId())){
             repository.saveAndFlush(author);
+            return "Автор " + author.getName() + " добавлен";
         }
+        return "Автор с id " + author.getId() + " уже существует";
     }
 
     @Override
-    public void updateAuthor(Author author) {
+    public String updateAuthor(Author author) {
         if(repository.exists(author.getId())){
             repository.saveAndFlush(author);
         }
-
+        return "Автор с id" + author.getId() + " не найден";
     }
 }

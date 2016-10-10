@@ -1,4 +1,4 @@
-package com.ligaz.server;
+package com.ligaz.server.config;
 
 import com.ligaz.server.config.WebConfig;
 import org.springframework.web.WebApplicationInitializer;
@@ -17,8 +17,9 @@ public class ApplicationInit implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
         applicationContext.register(WebConfig.class);
+        applicationContext.register(MultipartResolverConfig.class);
         servletContext.addListener(new ContextLoaderListener(applicationContext));
-        ServletRegistration.Dynamic servlet = servletContext.addServlet(NAME_DISPATCHER,new DispatcherServlet(applicationContext));
+        ServletRegistration.Dynamic servlet = servletContext.addServlet(NAME_DISPATCHER, new DispatcherServlet(applicationContext));
         servlet.addMapping("/");
         servlet.setLoadOnStartup(1);
     }

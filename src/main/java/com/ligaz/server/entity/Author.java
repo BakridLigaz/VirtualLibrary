@@ -2,13 +2,11 @@ package com.ligaz.server.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "author")
 public class Author implements Serializable {
 
     @Id
@@ -16,7 +14,7 @@ public class Author implements Serializable {
     @GenericGenerator(name = "increment",strategy = "increment")
     private int id;
 
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     public Author() {

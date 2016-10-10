@@ -14,7 +14,7 @@ public class Genre implements Serializable {
     @GenericGenerator(name = "increment",strategy = "increment")
     private int id;
 
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     public Genre() {

@@ -38,14 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUser(User user) {
-        if(repository.exists(user.getId())){
-            repository.delete(user);
-        }
+    public void removeUser(long id) {
+        repository.delete(id);
     }
 
     @Override
     public List<User> getUsersByRole(Role role) {
-        return null;
+        return repository.findUsersByRole(role);
     }
 }

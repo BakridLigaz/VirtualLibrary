@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="App">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Virtual Library</title>
+    <link href="../../resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../resources/css/style.css" rel="stylesheet"/>
+    <script src="../../resources/angular/angular.js"></script>
+    <script src="../../resources/angular/angular_route.js"></script>
+    <script src="../../resources/angular/ui-bootstrap-tpls-2.1.4.js"></script>
+    <script src="../../resources/angular/ng-file-upload.js"></script>
+    <script src="../../resources/angular/ng-file-upload-shim.js"></script>
+    <script src="../../resources/js/application.js"></script>
+    <script src="../../resources/js/route_config.js"></script>
+    <script src="../../resources/js/services.js"></script>
+    <script src="../../resources/js/controllers.js"></script>
+    <script src="../../resources/js/directives.js"></script>
+</head>
+<body class="container" ng-controller="MainCtrl">
+<div class="panel-group well">
+    <div class="panel-heading">
+        <img src="../../resources/img/books.jpg" class="logo img-rounded"/>
+    </div>
+    <div class="panel-body"></div>
+    <div class="panel-body">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Virtual Library</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="" ng-click="changeView('books')">Книги</a></li>
+                    <li><a href="" ng-click="changeView('genres')">Жанры</a></li>
+                    <li><a href="" ng-click="changeView('authors')">Авторы</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск по названию"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Найти
+                    </button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Регистрация</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="panel-body row">
+        <div class="col-sm-3">
+            <div class="list-group">
+                <h4 class="list-group-item active">Наиболее популярные</h4>
+                <a href="#" class="list-group-item">Gjhjh <span class="badge">2</span></a>
+            </div>
+        </div>
+        <div class="col-sm-9 btn-group">
+            <div ng-view="" class="main_container"></div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <h6>Разработчик - Самойлов Олег 2016г.</h6>
+    </div>
+</div>
+
+</body>
+</html>

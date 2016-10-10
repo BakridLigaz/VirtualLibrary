@@ -11,6 +11,7 @@ public interface UserService {
     public User getUser(long id);
     public void addUser(User user);
     public void updateUser(User user);
-    public void removeUser(User user);
+
+    public void removeUser(long id);
     public List<User> getUsersByRole(Role role);
 }

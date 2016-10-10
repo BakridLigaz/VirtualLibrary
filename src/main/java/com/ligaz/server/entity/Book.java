@@ -1,13 +1,15 @@
 package com.ligaz.server.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.type.ImageType;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 @Entity
+@Table(name = "book")
 public class Book implements Serializable {
 
     @Id
@@ -15,7 +17,10 @@ public class Book implements Serializable {
     @GenericGenerator(name = "increment",strategy = "increment")
     private long id;
 
-    @Column(name = "publish_date",nullable = false)
+    @Column(name = "name", unique = true)
+    private String name;
+
+    @Column(name = "publish_date", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date publish_date;
 
@@ -25,19 +30,19 @@ public class Book implements Serializable {
     @Column(name = "description",nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author")
     private Author author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre")
     private Genre genre;
 
-    @Column(name="image_path",nullable = false)
-    private String imagePath;
+    @Column(name = "count_views", nullable = true)
+    private long countViews;
 
-    @Column(name = "file_path",nullable = false)
-    private String filePath;
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
 
     public Book() {
     }
@@ -89,4 +94,29 @@ public class Book implements Serializable {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getCountViews() {
+        return countViews;
+    }
+
+    public void setCountViews(long countViews) {
+        this.countViews = countViews;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
 }

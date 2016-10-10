@@ -10,9 +10,16 @@ public interface BookService {
     public List<Book> getAllBooks();
     public List<Book> getBooksByAuthor(Author author);
     public List<Book> getBooksByGenre(Genre genre);
-    public List<Book> getBooksBySearch();
+
+    public List<Book> getBooksBySearch(String searchQuery);
+
+    public Book getBookByName(String name);
+
     public Book getBook(long id);
-    public void editBook(Book book);
-    public void deleteBook(Book book);
-    public void addBook(Book book);
+
+    public String updateBook(Book book);
+
+    public String deleteBook(long id);
+
+    public String addBook(Book book);
 }

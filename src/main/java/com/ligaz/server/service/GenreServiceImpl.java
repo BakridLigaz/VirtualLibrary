@@ -14,10 +14,12 @@ public class GenreServiceImpl implements GenreService {
     GenreRepository repository;
 
     @Override
-    public void addGenre(Genre genre) {
+    public String addGenre(Genre genre) {
         if(!repository.exists(genre.getId())){
             repository.saveAndFlush(genre);
+            return "Жанр " + genre.getName() + " успешно добавлен";
         }
+        return "Жанр " + genre.getName() + " не был добавлен, поскольку данный id уже занят";
     }
 
     @Override
@@ -31,9 +33,11 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public void updateGenre(Genre genre) {
+    public String updateGenre(Genre genre) {
         if(repository.exists(genre.getId())){
             repository.saveAndFlush(genre);
+            return "Жанр " + genre.getName() + " был успешно изменен";
         }
+        return "Жанра  с id " + genre.getId() + " нет в базе";
     }
 }

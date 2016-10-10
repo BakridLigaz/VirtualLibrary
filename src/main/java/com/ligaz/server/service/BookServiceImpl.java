@@ -14,6 +14,7 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     BookRepository repository;
+
     @Override
     public List<Book> getAllBooks() {
         return repository.findAll();
@@ -21,43 +22,57 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooksByAuthor(Author author) {
-        return repository.findByAuthor(author);
+        return repository.findBooksByAuthor(author);
     }
 
     @Override
     public List<Book> getBooksByGenre(Genre genre) {
-        return null;
+        return repository.findBooksByGenre(genre);
     }
 
 
     @Override
-    public List<Book> getBooksBySearch() {
-        return null;
+    public List<Book> getBooksBySearch(String searchQuery) {
+        return repository.findBooksBySearchQuery(searchQuery);
+    }
+
+    @Override
+    public Book getBookByName(String name) {
+        return repository.findBooksByName(name);
     }
 
     @Override
     public Book getBook(long id) {
+        long currentCount = repository.findOne(id).getCountViews();
+        currentCount++;
+        Book tempBook = repository.findOne(id);
+        tempBook.setCountViews(currentCount);
+        repository.saveAndFlush(tempBook);
         return repository.findOne(id);
     }
 
     @Override
-    public void editBook(Book book) {
-        if(repository.exists(book.getId())){
+    public String updateBook(Book book) {
             repository.saveAndFlush(book);
-        }
+        return "Книга " + book.getName() + " измена";
     }
 
     @Override
-    public void deleteBook(Book book) {
-        if(repository.exists(book.getId())){
-            repository.delete(book);
+    public String deleteBook(long id) {
+        Book b = repository.getOne(id);
+        if (repository.exists(id)) {
+            repository.delete(id);
+            return "Книга " + b.getName() + " удалена";
         }
+        return "Книга " + b.getName() + " не найдена";
     }
 
     @Override
-    public void addBook(Book book) {
+    public String addBook(Book book) {
         if(!repository.exists(book.getId())){
             repository.saveAndFlush(book);
+            return "Книга " + book.getName() + " добавлена";
         }
+        return "Книга с id " + book.getId() + " уже существует";
     }
 }

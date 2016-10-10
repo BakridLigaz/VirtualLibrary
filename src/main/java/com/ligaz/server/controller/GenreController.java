@@ -1,8 +1,7 @@
 package com.ligaz.server.controller;
 
 import com.ligaz.server.entity.Genre;
-import com.ligaz.server.repository.GenreRepository;
-import com.ligaz.server.service.GenreServiceImpl;
+import com.ligaz.server.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,24 +12,30 @@ import java.util.List;
 public class GenreController {
 
     @Autowired
-    GenreServiceImpl service;
+    private GenreService service;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public List<Genre> getAll(){
+    public
+    @ResponseBody
+    List<Genre> getAll() {
         return service.getAll();
     }
+
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Genre getGenre(@PathVariable("id") int id){
+    public
+    @ResponseBody
+    Genre getGenre(@PathVariable("id") int id) {
         return service.getGenre(id);
     }
 
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public void addGenre(@RequestBody Genre genre){
-        service.addGenre(genre);
+    public String addGenre(@RequestBody Genre genre) {
+        return service.addGenre(genre);
     }
 
     @RequestMapping(value = "",method = RequestMethod.PUT)
-    public void updateGenre(@RequestBody Genre genre){
-        service.updateGenre(genre);
+    public String updateGenre(@RequestBody Genre genre) {
+        return service.updateGenre(genre);
     }
+
 }
