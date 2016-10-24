@@ -8,26 +8,30 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Date;
 
-@Entity
+@Entity(name = "book")
 @Table(name = "book")
 public class Book implements Serializable {
 
     @Id
     @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment",strategy = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
     @Column(name = "name", unique = true)
     private String name;
 
-    @Column(name = "publish_date", nullable = true)
+    @Column(name = "publish_date")
     @Temporal(TemporalType.DATE)
     private Date publish_date;
+
+    @Column(name = "add_date")
+    @Temporal(TemporalType.DATE)
+    private Date add_date;
 
     @Column(name = "count")
     private int count;
 
-    @Column(name = "description",nullable = false)
+    @Column(name = "description", length = 1000, nullable = false)
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -38,7 +42,7 @@ public class Book implements Serializable {
     @JoinColumn(name = "genre")
     private Genre genre;
 
-    @Column(name = "count_views", nullable = true)
+    @Column(name = "count_views")
     private long countViews;
 
     @Column(name = "image", columnDefinition = "LONGBLOB")
@@ -119,4 +123,11 @@ public class Book implements Serializable {
         this.image = image;
     }
 
+    public Date getAdd_date() {
+        return add_date;
+    }
+
+    public void setAdd_date(Date add_date) {
+        this.add_date = add_date;
+    }
 }

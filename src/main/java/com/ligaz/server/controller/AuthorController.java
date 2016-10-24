@@ -24,6 +24,11 @@ public class AuthorController {
         return service.getAuthor(id);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteAuthor(@PathVariable("id") int id) {
+        return service.delete(id);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String addAuthor(@RequestBody Author author) {
         return service.addAuthor(author);
@@ -32,5 +37,15 @@ public class AuthorController {
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public String updateAuthor(@RequestBody Author author) {
         return service.updateAuthor(author);
+    }
+
+    @RequestMapping(value = "/isUnique/{name}", method = RequestMethod.GET)
+    public boolean isUnique(@PathVariable String name) {
+        return service.isUniqueName(name);
+    }
+
+    @RequestMapping(value = "/isUsed/{id}", method = RequestMethod.GET)
+    public boolean isUsed(@PathVariable("id") int id) {
+        return service.isUsed(id);
     }
 }

@@ -1,0 +1,17 @@
+<div class="well row">
+    <div class="col-sm-3 content_container">
+        <img ng-src="books/getImage/{{books.curBook.id}}" alt="{{books.curBook.name}}" class="load img-rounded">
+    </div>
+    <div class="col-sm-7">
+        <h3>Название: {{books.curBook.name}}</h3>
+        <p>Количество страниц:<b>{{books.curBook.count}}</b></p>
+
+        <p>Дата публикации: <b>{{books.curBook.publish_date|date:'d-MM-yyyy'}}</b></p>
+        <p>Автор: <b><a href="#">{{books.curBook.author.name}}</a></b></p>
+        <p>Жанр: <b><a href="#">{{books.curBook.genre.name}}</a></b></p>
+        <div><p>Описание: {{books.curBook.description}}</p></div>
+        <div>
+            <button class="btn btn-default" ng-click="getContent(books.curBook)"><span class="glyphicon glyphicon-eye-open"></span> Читать</button>
+        </div>
+    </div>
+</div>

@@ -1,22 +1,31 @@
 <div>
-    <div class="modal-header">
+    <div class="modal-header" ng-show="isNew">
         <h3 class="modal-title">Добавление жанра</h3>
     </div>
+    <div class="modal-header" ng-hide="isNew">
+        <h3 class="modal-title">Обновление жанра</h3>
+    </div>
     <div class="modal-body" ng-show="isEdit">
-        <form class="form-horizontal">
+        <form class="form-horizontal control" name="genre_form" novalidate>
             <div class="form-group">
                 <div class="col-sm-3"></div>
                 <label class="control-label col-sm-2" for="name">Название:</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" id="name" placeholder="Enter name genre"
-                           ng-model="genre.name"/>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control control" id="name" placeholder="Введите название жанра" name="name"
+                           ng-model="genre.name" ng-unique="genre"  required="required" ng-class="{'ng-dirty':isDirty}"/>
+                    <div ng-messages="genre_form.name.$error" ng-show="genre_form.name.$dirty||isDirty" class="errors messages">
+                        <div ng-message="required">Поле не должно быть пустым</div>
+                        <div ng-message="unique">Жанр с таким названием уже существует</div>
+                    </div>
                 </div>
+                <div ng-show="genre_form.name.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':genre_form.$invalid,'glyphicon glyphicon-ok ok':genre_form.$valid}"></span></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
-                    <button class="btn btn-default" ng-click="save(genre)">Сохранить</button>
-                    <button class="btn btn-default" ng-click="closeAndExit()">Выйти</button>
+                    <button class="btn btn-success" ng-click="update(genre_form.$valid,genre)" ng-hide="isNew">Обновить</button>
+                    <button class="btn btn-success" ng-click="save(genre_form.$valid,genre)" ng-show="isNew">Сохранить</button>
+                    <button class="btn btn-primary" ng-click="closeAndExit()">Выйти</button>
                 </div>
             </div>
         </form>
@@ -24,7 +33,7 @@
     <div class="modal-body" ng-show="isLoad">
         <h1>Загрузка данных...</h1>
     </div>
-    <div ng-hide="isEdit" class="modal-body">
+    <div ng-hide="isEdit" class="modal-body content_container">
         <h1>{{result}}</h1>
         <button class="btn btn-default" ng-click="closeAndExit()">Ок</button>
     </div>

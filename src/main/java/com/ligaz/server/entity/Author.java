@@ -11,7 +11,7 @@ public class Author implements Serializable {
 
     @Id
     @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment",strategy = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private int id;
 
     @Column(name = "name", nullable = false, unique = true)

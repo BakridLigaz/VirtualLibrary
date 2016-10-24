@@ -5,10 +5,18 @@ import com.ligaz.server.entity.Author;
 import java.util.List;
 
 public interface AuthorService {
-    public List<Author> getAll();
-    public Author getAuthor(int id);
 
-    public String addAuthor(Author author);
+    List<Author> getAll();
 
-    public String updateAuthor(Author author);
+    Author getAuthor(int id);
+
+    String addAuthor(Author author);
+
+    String updateAuthor(Author author);
+
+    boolean isUniqueName(String name);
+
+    boolean isUsed(int id);
+
+    String delete(int id);
 }

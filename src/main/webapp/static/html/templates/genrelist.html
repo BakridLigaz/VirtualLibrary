@@ -1,8 +1,15 @@
 <div>
-    <div>
-        <ul ng-repeat="genre in genreList|orderBy:name">
-            <li>{{genre.name}}</li>
-        </ul>
-    </div>
-    <button class="btn btn-primary" ng-click="openModal()">Добавить жанр</button>
+    <h4>Найдено жанров: {{genres.genreList.length}}</h4>
+</div>
+<div>
+<table class="table table-hover">
+     <tr  ng-repeat="genre in genres.genreList|orderBy:name">
+         <td class="col-sm-8">{{genre.name}}</td>
+         <td class="col-sm-4">
+             <button ng-click="openModal(genre)" class="btn btn-success" ng-show="mode='admin'"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
+             <button class="btn btn-danger" ng-used="{{genre.id}}" type-entity="genre" ng-click="deleteGenre(genre)" ng-show="mode='admin'"><span class="glyphicon glyphicon-trash"></span> Удалить</button>
+         </td>
+     </tr>
+ </table>
+ <button class="btn btn-primary" ng-click="openModal()" ng-show="mode='admin'">Добавить жанр</button>
 </div>

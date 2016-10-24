@@ -1,25 +1,44 @@
 package com.ligaz.server.service;
 
-import com.ligaz.server.entity.Author;
 import com.ligaz.server.entity.Book;
-import com.ligaz.server.entity.Genre;
 
 import java.util.List;
 
 public interface BookService {
-    public List<Book> getAllBooks();
-    public List<Book> getBooksByAuthor(Author author);
-    public List<Book> getBooksByGenre(Genre genre);
 
-    public List<Book> getBooksBySearch(String searchQuery);
+    List<Book> getAllBooks(int offset, int limit);
 
-    public Book getBookByName(String name);
+    long getAllListLenght();
 
-    public Book getBook(long id);
+    List<Book> getBooksByAuthor(int offset, int limit, int authorId);
 
-    public String updateBook(Book book);
+    List<Book> getBooksByGenre(int offset, int limit, int genreId);
 
-    public String deleteBook(long id);
+    List<Book> getBooksBySearch(int offset, int limit, String searchQuery);
 
-    public String addBook(Book book);
+    Book getBookByName(String name);
+
+    Book getBook(long id);
+
+    String updateBook(Book book);
+
+    boolean deleteBook(long id);
+
+    String addBook(Book book);
+
+    boolean isUniqueName(String name);
+
+    byte[] getImage(Long id);
+
+    boolean addContent(Book book, byte[] content);
+
+    long getListLenghtByAuthor(int authorId);
+
+    long getListLenghtByGenre(int genreId);
+
+    long getListLengthBySearch(String query);
+
+    List<Book> getBooksByRandom(int limit);
+
+    byte[] getContent(String bookName);
 }

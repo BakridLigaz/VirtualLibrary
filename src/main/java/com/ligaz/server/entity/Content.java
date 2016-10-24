@@ -1,21 +1,19 @@
 package com.ligaz.server.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.sql.Blob;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "content")
-public class Content {
+public class Content implements Serializable {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    private long id;
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "book")
-    private Book book;
+    @Column(name = "book_name", nullable = false)
+    private String bookName;
 
     @Column(name = "content", nullable = false, columnDefinition = "LONGBLOB")
     private byte[] content;
@@ -23,17 +21,26 @@ public class Content {
     public Content() {
     }
 
-    public Content(Book book, byte[] content) {
-        this.book = book;
+    public Content(Long id, String bookName, byte[] content) {
+        this.id = id;
+        this.bookName = bookName;
         this.content = content;
     }
 
-    public Book getBook() {
-        return book;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public byte[] getContent() {
@@ -42,14 +49,6 @@ public class Content {
 
     public void setContent(byte[] content) {
         this.content = content;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
 }

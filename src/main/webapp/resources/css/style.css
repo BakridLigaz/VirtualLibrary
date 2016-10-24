@@ -3,26 +3,67 @@
     height: 200px;
 }
 
-.img_container {
+.content_container {
     text-align: center;
 }
 
 body {
-    background-color: #2aabd2;
+    background-image:url("../img/HD-Library.jpg");
 }
 
 .main_container {
     min-height: 500px;
+}
+.book_container{
+    height: 400px;
+}
+
+.buttons_ctrl{
+    position: absolute;
+    bottom: 20px;
 }
 
 li {
     list-style-type: none;
 }
 
-.thumb {
-    width: 24px;
-    height: 24px;
-    float: none;
-    position: relative;
-    top: 7px;
+.load {
+    width: 94%;
+    border: 1px solid lightgray;
+    height: 200px;
+    margin: 3%;
+}
+.present_book{
+    height:300px;
+}
+.messages{
+    font-size: 12px;
+    font-family: "Comic Sans MS";
+}
+.errors{
+    color: red;
+}
+.ok{
+    color: darkgreen;
+}
+form .ng-dirty.ng-invalid.control{
+    border: 1px solid red;
+}
+form .ng-dirty.ng-valid.control{
+    border: 1px solid darkgreen;
+}
+
+form .ng-pristine.control{
+    border: 1px solid #2aabd2;
+}
+
+.book_header{
+    color: #080808;
+    font-family:"Arial Black";
+    font-size: 15px;
+}
+.book_desc{
+    color: #080808;
+    font-family:"Arial";
+    font-size: 10px;
 }

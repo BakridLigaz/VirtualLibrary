@@ -1,1 +1,1 @@
-angular.module("App", ['Controllers', 'Services', 'ngRoute']);
+angular.module("App", ['Controllers', 'Services','Directives','ngMessages', 'ngRoute']);

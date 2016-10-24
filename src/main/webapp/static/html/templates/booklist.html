@@ -1,8 +1,22 @@
-<div>
-    <div>
-        <ul>
-            <li ng-repeat="book in bookList">{{book.name}}</li>
-        </ul>
-    </div>
-    <button class="btn btn-primary" ng-click="openModal()">Добавить книгу</button>
+<div ng-hide="random.isRandom">
+    <h4>Найдено книг: {{size}}</h4>
 </div>
+<div ng-show="random.isRandom"><h4>Случайные книги</h4></div>
+<div class="row">
+    <div ng-repeat="book in books.bookList" class="col-sm-4 well book_container">
+        <a href="" ng-click="getBook(book)">
+            <img ng-src="books/getImage/{{book.id}}" alt="{{book.name}}" class="load img-rounded">
+            <h5 class="book_header">{{book.name}}</h5>
+        </a>
+        <div class="book_desc">
+        <p><b>Автор:</b><a href="" ng-click="getBooksByAuthor(book.author.id)"> {{book.author.name}}</a></p>
+        <p><b>Жанр:</b><a href="" ng-click="getBooksByGenre(book.genre.id)"> {{book.genre.name}}</a></p>
+        </div>
+        <div ng-show="mode.user=='admin'&&type.listType=='All'" class="buttons_ctrl">
+            <button class="btn btn-success btn-sm" ng-click="openModal(book)"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
+            <button class="btn btn-danger btn-sm" ng-click="deleteBook(book)"><span class="glyphicon glyphicon-trash"></span> Удалить</button>
+        </div>
+    </div>
+</div>
+<ul uib-pagination="" ng-show="size>limit" ng-change="pageChanged()" total-items="size" ng-model="page.curPage" items-per-page="limit" class="pagination" boundary-links="true" rotate="false" ng-show="books.bookList.length>limit" next-text="след" last-text="последняя" previous-text="пред" first-text="первая"></ul>
+<div ng-show="mode.user=='admin'"><button class="btn btn-primary" ng-click="openModal()">Добавить книгу</button></div>

@@ -1,93 +1,136 @@
 <div>
-    <div class="modal-header">
-        <h3 class="modal-title">Добавление книги</h3>
+    <div class="modal-header" ng-show="isNew">
+        <h3 class="modal-title" >Добавление книги</h3>
     </div>
-    <form class="form-horizontal modal-body" novalidate="novalidate" name="bookForm" ng-show="isEdit">
+    <div class="modal-header" ng-hide="isNew">
+        <h3 class="modal-title">Обновление книги</h3>
+    </div>
+    <form class="form-horizontal modal-body control" novalidate="novalidate" name="book_form" ng-show="isEdit">
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="name">Название:</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="name" placeholder="Введите название книги" required
-                       ng-model="book.name" ng-keyup="Exist(book.name)">
+            <div class="col-sm-6">
+                <input type="text" class="form-control control" id="name" placeholder="Введите название книги" required
+                       ng-model="book.name" ng-unique="book" name="name" ng-class="{'ng-dirty':isDirty}">
+                <div ng-messages="book_form.name.$error" ng-show="book_form.name.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Поле не должно быть пустым</div>
+                    <div ng-message="unique">Книга с таким названием уже существует</div>
+                </div>
             </div>
-            <div ng-show="isExist">
-                <span>Книга уже существует!!!</span>
-            </div>
+            <div ng-show="book_form.name.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.name.$invalid,'glyphicon glyphicon-ok ok':book_form.name.$valid}"></span></div>
         </div>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="date">Дата публикации:</label>
-            <div class="col-sm-5">
-                <input type="date" class="form-control" id="date" required
-                       ng-model="book.publish_date">
+            <div class="col-sm-6">
+                <input class="form-control control" id="date" required date-pic=""
+                       ng-model="book.publish_date" name="date" ng-class="{'ng-dirty':isDirty}">
+                <div ng-messages="book_form.date.$error" ng-show="book_form.date.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Выберите дату!!!</div>
+                    </div>
             </div>
+            <div ng-show="book_form.date.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.date.$invalid,'glyphicon glyphicon-ok ok':book_form.date.$valid}"></span></div>
         </div>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="page_count">Количество страниц:</label>
-            <div class="col-sm-5">
-                <input type="number" class="form-control" id="page_count" placeholder="Введите количество страниц"
-                       ng-model="book.count" required>
+            <div class="col-sm-6">
+                <input type="number" class="form-control control" id="page_count"
+                       ng-model="book.count" required max="5000" min="10" name="count" ng-class="{'ng-dirty':isDirty}">
+                <div ng-messages="book_form.count.$error" ng-show="book_form.count.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Введите количество страниц!!!</div>
+                    <div ng-message="max">Количество страниц не может быть больше 5000!!!</div>
+                    <div ng-message="min">Количество страниц должно быть больше 10!!!</div>
+                    </div>
             </div>
+            <div ng-show="book_form.count.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.count.$invalid,'glyphicon glyphicon-ok ok':book_form.count.$valid}"></span></div>
         </div>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="description">Описание:</label>
-            <div class="col-sm-5">
-                <textarea class="form-control" id="description" ng-model="book.description" required>
+            <div class="col-sm-6">
+                <textarea class="form-control control" id="description" ng-model="book.description" required ng-minlength="250" name="desc" ng-class="{'ng-dirty':isDirty}">
                     </textarea>
+                <div ng-messages="book_form.desc.$error" ng-show="book_form.desc.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Поле не должно быть пустым</div>
+                    <div ng-message="minlength">Размер описания должен быть больше!!!</div>
+                    </div>
             </div>
+            <div ng-show="book_form.desc.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.desc.$invalid,'glyphicon glyphicon-ok ok':book_form.desc.$valid}"></span></div>
         </div>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="author">Автор:</label>
-            <div class="col-sm-5">
-                <select class="form-control" id="author" ng-model="book.author"
-                        ng-options="author.name for author in currentAuthorList" required>
+            <div class="col-sm-6">
+                <select class="form-control control" id="author" ng-model="book.author"
+                        ng-options="author.name for author in currentAuthorList track by author.id" required name="author_select" ng-class="{'ng-dirty':isDirty}">
                 </select>
+                <div ng-messages="book_form.author_select.$error" ng-show="book_form.author_select.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Укажите автора!!!</div>
+                    </div>
             </div>
+            <div ng-show="book_form.author_select.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.author_select.$invalid,'glyphicon glyphicon-ok ok':book_form.author_select.$valid}"></span></div>
         </div>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="genre">Жанр:</label>
-            <div class="col-sm-5">
-                <select class="form-control" id="genre" ng-model="book.genre"
-                        ng-options="genre.name for genre in currentGenreList" required>
+            <div class="col-sm-6">
+                <select class="form-control control" id="genre" ng-model="book.genre"
+                        ng-options="genre.name for genre in currentGenreList track by genre.id"  required name="genre_select" ng-class="{'ng-dirty':isDirty}">
                 </select>
+                <div ng-messages="book_form.genre_select.$error" ng-show="book_form.genre_select.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Укажите жанр!!!</div>
+                    </div>
             </div>
+            <div ng-show="book_form.genre_select.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.genre_select.$invalid,'glyphicon glyphicon-ok ok':book_form.genre_select.$valid}"></span></div>
         </div>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="choose_img">Обложка:</label>
-            <div class="col-sm-5">
-                <input type="file" ngf-select="" ng-model="image" name="image" accept="image/*" class="form-control"
-                       id="choose_img" required=""/>
-                <img ngf-src="picFile" class="thumb"/>
+            <div class="col-sm-6">
+                <div ng-show="isImageUpdate">
+                    <img ng-src="books/getImage/{{book.id}}" class="load"/>
+                </div>
+                <input ng-hide="isImageUpdate" type="file" ngf-select="" ng-model="image" name="image" accept="image/*" class="form-control control"
+                       id="choose_img" ng-required="!isImageUpdate" ng-class="{'ng-dirty':isDirty}" placeholder="Обложка" />
+                <img ngf-src="image" class="load"/>
+                <div ng-messages="book_form.image.$error" ng-show="book_form.image.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Выберите файл обложки</div>
+                    </div>
             </div>
+            <div ng-show="book_form.image.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.image.$invalid,'glyphicon glyphicon-ok ok':book_form.image.$valid}"></span></div>
         </div>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <label class="control-label col-sm-2" for="choose_file">Файл книги:</label>
-            <div class="col-sm-5">
-                <input type="file" ngf-select="" accept="application/pdf" ng-model="content" name="content"
-                       class="form-control" id="choose_file" required="">
+            <div class="col-sm-6">
+                <div ng-show="isFileUpdate">
+                    <span>{{book.name+'.pdf'}}</span>
+                </div>
+                <input ng-hide="isFileUpdate" type="file" ngf-select="" accept="application/pdf" ng-model="content" name="content"
+                       class="form-control control" id="choose_file" ng-required="!isFileUpdate" ng-class="{'ng-dirty':isDirty}">
+                <div ng-messages="book_form.content.$error" ng-show="book_form.content.$dirty||isDirty" class="errors messages">
+                    <div ng-message="required">Выберите файл книги</div>
+                    </div>
             </div>
+            <div ng-show="book_form.content.$dirty||isDirty"><span ng-class="{'glyphicon glyphicon-remove errors':book_form.content.$invalid,'glyphicon glyphicon-ok ok':book_form.content.$valid}"></span></div>
         </div>
 
         <div class="form-group">
             <div class="col-sm-3"></div>
-            <div class="col-sm-offset-2 col-sm-6">
-                <button type="submit" class="btn btn-default" ng-click="save(image,content,book)"
-                        ng-disabled="bookForm.$invalid">Сохранить
+            <div class=" col-sm-6">
+                <button ng-show="isNew"  class="btn btn-success" ng-click="save(book_form.$valid,image,content,book)">Сохранить
                 </button>
-                <button class="btn btn-default" ng-click="closeAndExit()">Выйти</button>
+                <button ng-hide="isNew" class="btn btn-success" ng-click="update(book_form.$valid,book)">Обновить</button>
+                <button class="btn btn-primary" ng-click="closeAndExit()">Выйти</button>
             </div>
         </div>
     </form>
     <div class="modal-body" ng-show="isLoad">
         <h1>Загрузка данных...</h1>
+        <div><uib-progressbar value="progress" class="progress-striped active" max="1000"></uib-progressbar></div>
     </div>
-    <div ng-hide="isEdit" class="modal-body">
+    <div ng-hide="isEdit" class="modal-body content_container">
         <h1>{{allResults}}</h1>
         <button class="btn btn-default" ng-click="closeAndExit()">Выйти</button>
     </div>

@@ -1,8 +1,15 @@
 <div>
-    <div>
-        <ul ng-repeat="author in authorList|orderBy:name">
-            <li>{{author.name}}</li>
-        </ul>
-    </div>
-    <button class="btn btn-primary" ng-click="openModal()">Добавить автора</button>
+    <h4>Найдено авторов: {{authors.authorList.length}}</h4>
+</div>
+<div>
+    <table class="table table-hover">
+        <tr  ng-repeat="author in authors.authorList|orderBy:name">
+            <td class="col-sm-8">{{author.name}}</td>
+            <td class="col-sm-4" ng-show="mode='admin'">
+                <button ng-click="openModal(author)" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
+                <button class="btn btn-danger" ng-used="{{author.id}}" type-entity="author" ng-click="deleteAuthor(author)"><span class="glyphicon glyphicon-trash"></span> Удалить</button>
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-primary" ng-click="openModal()" ng-show="mode='admin'">Добавить автора</button>
 </div>
